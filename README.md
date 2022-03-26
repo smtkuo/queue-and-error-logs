@@ -1,5 +1,18 @@
 # Node Queue And Error Logs
 
+### Install
+
+```
+npm i queue-and-error-logs
+```
+
+### Require
+
+```
+const Queue = require('queue')
+const queue = new Queue;
+```
+
 ### Add Functions
 
 ```
@@ -18,6 +31,7 @@ queue.addCallback("consoleErrorTest",function(object){
 ```
 
 ###  Add Queue Items
+
 ```
 queue.additem({"callback":"functionConsole","object": {"text": "Console Test"}})
 queue.additem({"callback":"functionConsole","object": {"text": "Console Test 2"}})
@@ -28,6 +42,7 @@ for(let i = 0; i < 1000; i++){
 
 
 ###  Run Queue
+
 ```
 queue.start({
     delay: 2000,

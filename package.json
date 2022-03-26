@@ -1,19 +1,19 @@
 {
   "name": "queue-and-error-logs",
-  "version": "1.2.1",
+  "version": "1.4",
   "description": "Queue callback functions with error logs",
   "main": "queue.js",
   "scripts": {
     "test": "node test.js"
   },
   "keywords": ["queue", "logs", "callback", "queue callback", "queue logs", "node queue", "wait callback", "backend"],
-  "author": "smtkuo",
+  "author": "sametuo",
   "license": "MIT",
   "dependencies": {
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/smtkuo/queue-and-error-logs"
+    "url": "https://github.com/smtkuo/queue-and-error-logs.git"
   },
 "homepage": "https://github.com/smtkuo/queue-and-error-logs"
 }
