@@ -9,7 +9,7 @@ npm i queue-and-error-logs
 ### Require
 
 ```
-const Queue = require('queue')
+const Queue = require('queue-and-error-logs')
 const queue = new Queue;
 ```
 

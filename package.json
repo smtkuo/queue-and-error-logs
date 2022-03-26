@@ -1,6 +1,6 @@
 {
   "name": "queue-and-error-logs",
-  "version": "1.4",
+  "version": "1.5.0",
   "description": "Queue callback functions with error logs",
   "main": "queue.js",
   "scripts": {
