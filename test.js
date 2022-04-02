@@ -26,9 +26,10 @@ for(let i = 0; i < 1000; i++){
 
 // Run Queue
 queue.start({
-    delay: 2000,
+    delay: 1000,
+    max_execution_time: (5*60*1000),
     errorLog: true,
     showMessage: true,
     showLogs: true,
-    errorLogLimit: 3
+    errorLogLimit: 11
 });

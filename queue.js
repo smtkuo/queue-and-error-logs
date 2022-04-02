@@ -6,6 +6,8 @@ class Queue {
     this.items = []
     this.iterations = 0
     this.started = false
+    this.delay = 1000
+    this.max_execution_time = 180*1000
   }
 
   async sleep(ms) {
@@ -26,35 +28,41 @@ class Queue {
     this.started = true
 
     while (this.started == true) {
-      this.tick(settings)
+      await this.tick(settings,this.settings.max_execution_time)
       if(this.settings.delay) await this.sleep(this.settings.delay)
     }
   }
 
-  async tick(settings) {
-    if (typeof this.items[0] == 'undefined') return
+  async tick(settings,max_execution_time=(600*1000)) {
+    return new Promise((resolve,reject) => {
+      (async () => {
+      if(max_execution_time) setTimeout(resolve, max_execution_time)
+      if (typeof this.items[0] == 'undefined') return resolve();
 
-    const run = this.items[0]
-    if (this.f[run.callback] == 'undefined' || run.object == 'undefined'){
-      return
-    }
-
-    try{ 
-      if(this.settings.showMessage) console.log("Run: "+run.callback);
-      this.f[run.callback](run.object) 
-      ++this.log["success"]
-    }catch(e){ 
-      ++this.log["error"]
-      if(this.settings.errorLog) this.log.errorLog.unshift(e)
-      if(this.settings.showMessage) console.log(e)
-      if(this.settings.errorLogLimit){
-        if(this.log.errorLog.length>this.settings.errorLogLimit) this.log.errorLog.pop()
+      const run = this.items[0]
+      if (this.f[run.callback] == 'undefined' || run.object == 'undefined'){
+        return resolve();
       }
-      if(this.settings.showLogs) console.log(this.log)
-    }
 
-    this.items.shift()
-    this.iterations++
+      try{ 
+        if(this.settings.showMessage) console.log("Run: "+run.callback);
+        await this.f[run.callback](run.object) 
+        ++this.log["success"]
+      }catch(e){
+        ++this.log["error"]
+        if(this.settings.errorLog) this.log.errorLog.unshift(e)
+        if(this.settings.showMessage) console.log(e)
+        if(this.settings.errorLogLimit){
+          if(this.log.errorLog.length>this.settings.errorLogLimit) this.log.errorLog.pop()
+        }
+        if(this.settings.showLogs) console.log(this.log)
+      }
+
+      this.items.shift()
+      this.iterations++
+      resolve();
+      })().catch(e => console.log("Caught: " + e));
+   });
   }
 
   async getLog(){
